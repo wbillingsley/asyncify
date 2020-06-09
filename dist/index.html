@@ -1,0 +1,42 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Asyncify test page</title>
+    <meta charset="utf-8" />
+  </head>
+  <body>
+    <h1>Asyncify test page</h1>
+    <script src="./main.js"></script>
+    <script>
+      function process() {
+        let before = document.getElementById("codebox").value
+        try {
+          let after = asyncify.asyncify(before)
+          document.getElementById("codeoutput").value = after
+        } catch (err) {
+          document.getElementById("codeoutput").value = err.message
+        }
+      }
+    </script>
+
+    <div><textarea id="codebox" rows="10" cols="40">
+      async function goRight(i) {
+        for (let x = 0; x < i; x++) {
+          await right()
+        }
+      }
+    
+      function goDown(i) {
+        for (let x = 0; x < i; x++) {
+          right()
+        }
+      }
+    
+      goRight(5)
+      goDown(3)
+    </textarea></div>
+    <button onclick="process();">Asyncify</button>
+    <div><textarea id="codeoutput" readonly=readonly rows="10" cols="40"></textarea></div>
+
+  </body>
+</html>
