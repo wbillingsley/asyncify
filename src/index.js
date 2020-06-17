@@ -13,7 +13,6 @@ function ts1() {
               path.replaceWith(
                 t.awaitExpression(path.node)
               )
-              path.skip() 
             }
           },
           FunctionDeclaration: {
