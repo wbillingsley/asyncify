@@ -8,7 +8,6 @@ function ts1() {
       name: "make-function-async",
       visitor: {
           CallExpression(path) {
-            console.log(path)
             if (!path.parentPath.isAwaitExpression()) {
               path.replaceWith(
                 t.awaitExpression(path.node)
@@ -18,10 +17,20 @@ function ts1() {
           FunctionDeclaration: {
               enter(path) {
                   if (path.node.async) return;
-
-                  console.log(path)
                   path.node.async = true;                
               }
+          },
+          ArrowFunctionExpression: {
+            enter(path) {
+                if (path.node.async) return;
+                path.node.async = true;                
+            }
+          },
+          FunctionExpression: {
+            enter(path) {
+                if (path.node.async) return;
+                path.node.async = true;                
+            }
           },
       }
   }
